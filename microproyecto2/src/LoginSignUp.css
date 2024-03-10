@@ -5,15 +5,25 @@
     align-items: center;
     width: 100%;
     margin-top: 30px;
-    background: #7C90DB;
-    border-radius: 50px;
     cursor: pointer;
 }
 
-.sign-up-title{
+.sign-up-button{
     color: white;
     font-size: 20px;
     font-weight: 400;
+    background: #7C90DB;
+    border-radius: 50px;
+}
+
+.sign-up-button:hover{
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    background: #7C90DB;
+    border-radius: 50px;
+    transform: scale(1.05);
+    transition: transform 0.5s;
 }
 
 .underline{

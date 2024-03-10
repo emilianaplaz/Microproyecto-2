@@ -7,12 +7,16 @@ const LoginSignUp = () => {
 
     const[name, setName]=useState('');
     const[lastname, setLastName]=useState('');
+    const[user, setUser]=useState('');
     const[email, setEmail]=useState('');
     const[password, setPassword]=useState('');
     const[favoritegame, setFavoriteGame]=useState('');
 
+    const logIn = () => {
+        // sign in
+    }
 
-
+    // Check que los inputs esten llenos
     const handleSubmit = () => {
         const inputs = document.querySelectorAll('input');
         let allFieldsFilled = true;
@@ -32,7 +36,7 @@ const LoginSignUp = () => {
 
     return (
         <div className="container">
-
+            <form onSubmit={logIn}>
             <div className="submit-container">
                 <div className={action === "Registrarse" ? "submit gray" : "submit"} onClick={() => { setAction("Registrarse") }}>Registrarse</div>
                 <div className={action === "Ingresar" ? "submit gray" : "submit"} onClick={() => { setAction("Ingresar") }}>Ingresar</div>
@@ -50,29 +54,29 @@ const LoginSignUp = () => {
                             <input type="text" placeholder="Apellido" value={lastname} onChange={(e)=>setLastName(e.target.value)}/>
                         </div>
                         <div className="input">
-                            <input type="text" placeholder="Usuario" />
+                            <input type="text" placeholder="Usuario" value={user} onChange={(e)=>setUser(e.target.value)}/>
                         </div>
                         <div className="input">
-                            <input type="text" placeholder="Videojuego favorito" />
+                            <input type="text" placeholder="Videojuego favorito" value={favoritegame} onChange={(e)=>setFavoriteGame(e.target.value)}/>
                         </div>
                     </>
                 )}
 
                 
                 <div className="input">
-                            <input type="email" placeholder="Email" />
+                            <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                         </div>
 
                 <div className="input">
-                    <input type="password" placeholder="Contraseña" />
+                    <input type="password" placeholder="Contraseña" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </div>
 
                 <div className="header">
-                    <div className="sign-up-title" onClick={handleSubmit}>{action}</div>
+                    <button className="sign-up-button" type="submit" onClick={handleSubmit}>{action}</button>
                 </div>
 
             </div>
-
+            </form>
         </div>
     );
 };
