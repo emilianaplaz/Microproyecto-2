@@ -1,14 +1,28 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import LoginSignUp from './LoginSignUp'
+import LogIn from './Login'
+import SignUp from './SignUp'
+import HomePage from './HomePage'
+
+import app from './firebase'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+const auth = getAuth(app)
 
 function App() {
 
+  const [usuario, setUsuario] = useState(null)
+
+  onAuthStateChanged(auth, (usuarioFirebase)=>{
+    if(usuarioFirebase){
+      setUsuario(usuarioFirebase)
+    }else{
+      setUsuario(null)
+    }
+  })
+
   return (
       <div>
-        <LoginSignUp/>
+        {usuario ? <HomePage correoUsuario = {usuario.email}/> : <LogIn/>}
       </div>
   )
 }
