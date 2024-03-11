@@ -1,35 +1,12 @@
 import React, { useState } from "react";
 import './SignUp.css';
+import { Link } from 'react-router-dom'; 
+
 
 const SignUp = () => {
 
-    const funcSignUp = async(e) =>{
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(email);
-    }
-
-    const handleSubmit = () => {
-        const inputs = document.querySelectorAll('input');
-        let allFieldsFilled = true;
-
-        inputs.forEach(input => {
-            if (input.value.trim() === "") {
-                allFieldsFilled = false;
-            }
-        });
-
-        if (allFieldsFilled) {
-            console.log("Formulario enviado");
-        } else {
-            alert("Ingresa todos los campos");
-        }
-    };
-
     return (
         <div className="container">
-            <form onSubmit={logIn}>
                 <div className="submit-container">
                     <div className="title-signup">Registrarse</div>
                 </div>
@@ -57,11 +34,17 @@ const SignUp = () => {
                     </div>
 
                     <div className="header">
-                        <button className="sign-up-button" type="submit" onClick={handleSubmit}>Registrarse</button>
+                        <button className="sign-up-button" type="submit">Registrarse</button>
                     </div>
 
+                    <div className="redirect-login">
+                    <h1 className="redirect-login">Ya tiene cuenta?</h1>
+                    <Link to="/login"> 
+                        <button className="redirect-login-btn" type="button" >Ingresar</button>
+                    </Link>
                 </div>
-            </form>
+
+                </div>
         </div>
     );
 };

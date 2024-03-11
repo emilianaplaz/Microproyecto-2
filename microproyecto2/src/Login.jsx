@@ -1,54 +1,47 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'; 
 import './SignUp.css';
 import app from "./firebase";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 const auth = getAuth(app);
+import SignUp from "./SignUp";
+import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
     const [registrando, setRegistrando] = useState(false);
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
-    const functAuth = async(e) =>{
-         e.preventDefault();
-        //  const correo = e.target.email.value;
-        //  const contraseña = e.target.password.value;
-
+    const functAuth = async (e) => {
+        e.preventDefault();
         const correo = document.querySelector('#email').value;
         const contraseña = document.querySelector('#password').value;
 
-         if (registrando){ 
-             await createUserWithEmailAndPassword(auth,correo,contraseña)
-         } else {
-             await signInWithEmailAndPassword(auth,correo,contraseña)
-         }
-    }
-
-    const handleSubmit = (e) => {
-         e.preventDefault();
-         const inputs = document.querySelectorAll('input');
-         let allFieldsFilled = true;
-
-         inputs.forEach(input => {
-             if (input.value.trim() === "") {
-                 allFieldsFilled = false;
-             }
-         });
-
-         if (allFieldsFilled) {
-             console.log("Formulario enviado");
+        if (registrando) { 
+            try {
+                await createUserWithEmailAndPassword(auth, correo, contraseña);
+                navigate('/login'); 
+            } catch (error) {
+                alert('Error al registrar: ' + error.message);
+            }
         } else {
-             alert("Ingresa todos los campos");
-         }
-     };
+            try {
+                await signInWithEmailAndPassword(auth, correo, contraseña);
+                navigate('/homepage'); 
+            } catch (error) {
+                alert('El correo o la contraseña son incorrectos');
+            }
+        }
+    }
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
-                <div className="submit-container">
-                    <div className="title-signup">Ingresar</div>
-                </div>
+            <div className="submit-container">
+                <div className="title-signup">Ingresar</div>
+            </div>
 
-                <div className="underline"></div>
+            <div className="underline"></div>
 
+            <form onSubmit={functAuth}>
                 <div className="inputs">
                     <div className="input">
                         <input type="email" id="email" placeholder="Email" />
@@ -59,12 +52,17 @@ const LogIn = () => {
                     </div>
 
                     <div className="header">
-                        <button className="sign-up-button" type="submit" onClick={functAuth}>Iniciar sesión</button>
+                        <button className="sign-up-button" type="submit">Iniciar sesión</button>
                     </div>
 
+                    <div className="redirect-registro">
+                        <h1 className="redirect-registro">No tiene cuenta?</h1>
+                        <Link to="/signup"> 
+                            <button className="redirect-registro-btn" type="button">Registrarse</button>
+                        </Link>
+                    </div>
                 </div>
             </form>
-
         </div>
     );
 };

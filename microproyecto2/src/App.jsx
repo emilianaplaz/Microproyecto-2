@@ -8,23 +8,21 @@ import app from './firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 const auth = getAuth(app)
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 function App() {
 
-  const [usuario, setUsuario] = useState(null)
-
-  onAuthStateChanged(auth, (usuarioFirebase)=>{
-    if(usuarioFirebase){
-      setUsuario(usuarioFirebase)
-    }else{
-      setUsuario(null)
-    }
-  })
-
   return (
-      <div>
-        {usuario ? <HomePage correoUsuario = {usuario.email}/> : <LogIn/>}
-      </div>
-  )
+    <div className='App'>
+    <Router>
+      <Routes>
+        <Route path='/login' element={<LogIn />} />
+        <Route path='/homepage' element={<HomePage />} />
+        <Route path='/signup' element={<SignUp />} />
+      </Routes>
+    </Router>
+    </div>
+  );
 }
 
 export default App
