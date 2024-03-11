@@ -101,3 +101,32 @@
     border-radius: 50px;
 }
 
+.botones{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.redirect-homepage-btn{
+    color: #7C90DB;
+    font-size: 20px;
+    font-weight: 400;
+    background: white;
+    border-radius: 50px;
+    margin: 20px;
+    width: 100px;
+}
+
+.editar-btn{
+    color: white;
+    width: 100px;
+    font-size: 20px;
+    font-weight: 400;
+    background: #7C90DB;
+    border-radius: 50px;
+    transform: scale(1.05);
+    transition: transform 0.5s;
+    margin: 20px;
+}
+
+

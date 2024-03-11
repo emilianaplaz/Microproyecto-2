@@ -46,4 +46,18 @@
     color: #555;
     margin-bottom: 5px;
   }
-  
+
+.account-btn{
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    background: #7C90DB;
+    border-radius: 50px;
+    transition: transform 0.5s;
+    margin: 20px;
+}
+
+.account{
+    display: flex;
+    align-items: flex-end;
+}
