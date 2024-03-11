@@ -3,6 +3,7 @@ import './App.css'
 import LogIn from './Login'
 import SignUp from './SignUp'
 import HomePage from './HomePage'
+import Account from './Account'
 
 import app from './firebase'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<LogIn />} />
         <Route path='/homepage' element={<HomePage />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/account' element={<Account />} />
       </Routes>
     </Router>
     </div>

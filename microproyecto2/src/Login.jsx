@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
     const [registrando, setRegistrando] = useState(false);
-    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const navigate = useNavigate(); 
 
     const functAuth = async (e) => {
         e.preventDefault();
@@ -19,7 +19,6 @@ const LogIn = () => {
         if (registrando) { 
             try {
                 await createUserWithEmailAndPassword(auth, correo, contraseña);
-                navigate('/login'); 
             } catch (error) {
                 alert('Error al registrar: ' + error.message);
             }

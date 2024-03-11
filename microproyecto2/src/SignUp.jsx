@@ -1,50 +1,78 @@
 import React, { useState } from "react";
-import './SignUp.css';
 import { Link } from 'react-router-dom'; 
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; 
+import app from "./firebase";
+import { useNavigate } from 'react-router-dom';
 
+const auth = getAuth(app);
 
 const SignUp = () => {
+    const navigate = useNavigate();
+
+    const [registrando, setRegistrando] = useState(false);
+    const [name, setName] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [username, setUsername] = useState("");
+    const [favoriteGame, setFavoriteGame] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const functSignUp = async () => {
+        const correo = document.querySelector('#signup-email').value;
+        const contraseña = document.querySelector('#signup-password').value;
+
+        if (registrando) { 
+            try {
+                await createUserWithEmailAndPassword(auth, correo, contraseña);
+                console.log('usuario creado')
+                navigate('/login'); 
+            } catch (error) {
+                alert('Error al registrar: ' + error.message);
+            }
+        } else{
+            console.log('heres the problem')
+        }
+    }
 
     return (
         <div className="container">
-                <div className="submit-container">
-                    <div className="title-signup">Registrarse</div>
+            <div className="submit-container">
+                <div className="title-signup">Registrarse</div>
+            </div>
+
+            <div className="underline"></div>
+
+            <div className="inputs">
+                <div className="input">
+                    <input type="text" id="signup-name" placeholder="Nombre" onChange={(e) => setName(e.target.value)} />
+                </div>
+                <div className="input">
+                    <input type="text" id="signup-lastname" placeholder="Apellido" onChange={(e) => setLastname(e.target.value)} />
+                </div>
+                <div className="input">
+                    <input type="text" id="signup-user" placeholder="Usuario" onChange={(e) => setUsername(e.target.value)} />
+                </div>
+                <div className="input">
+                    <input type="text" id="signup-favoritegame" placeholder="Videojuego favorito" onChange={(e) => setFavoriteGame(e.target.value)} />
+                </div>
+                <div className="input">
+                    <input type="email" id="signup-email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                </div>
+                <div className="input">
+                    <input type="password" id="signup-password" placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
                 </div>
 
-                <div className="underline"></div>
-
-                <div className="inputs">
-                    <div className="input">
-                        <input type="text" id="name" placeholder="Nombre"/>
-                    </div>
-                    <div className="input">
-                        <input type="text" id="lastname" placeholder="Apellido" />
-                    </div>
-                    <div className="input">
-                        <input type="text" id="user" placeholder="Usuario" />
-                    </div>
-                    <div className="input">
-                        <input type="text" id="favoritegame" placeholder="Videojuego favorito" />
-                    </div>
-                    <div className="input">
-                        <input type="email" id="email" placeholder="Email" />
-                    </div>
-                    <div className="input">
-                        <input type="password" id="password" placeholder="Contraseña" />
-                    </div>
-
-                    <div className="header">
-                        <button className="sign-up-button" type="submit">Registrarse</button>
-                    </div>
-
-                    <div className="redirect-login">
-                    <h1 className="redirect-login">Ya tiene cuenta?</h1>
-                    <Link to="/login"> 
-                        <button className="redirect-login-btn" type="button" >Ingresar</button>
-                    </Link>
+                <div className="header">
+                    <button className="sign-up-button" onClick={functSignUp}>Registrarse</button>
                 </div>
+            </div>
 
-                </div>
+            <div className="redirect-login">
+                <h1 className="redirect-login">¿Ya tiene cuenta?</h1>
+                <Link to="/login"> 
+                    <button className="redirect-login-btn" type="button">Ingresar</button>
+                </Link>
+            </div>
         </div>
     );
 };
