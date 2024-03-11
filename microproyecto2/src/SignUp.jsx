@@ -9,7 +9,6 @@ const auth = getAuth(app);
 const SignUp = () => {
     const navigate = useNavigate();
 
-    const [registrando, setRegistrando] = useState(false);
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [username, setUsername] = useState("");
@@ -17,20 +16,21 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [registrando, setRegistrando] = useState(false); 
+
     const functSignUp = async () => {
         const correo = document.querySelector('#signup-email').value;
         const contraseña = document.querySelector('#signup-password').value;
 
-        if (registrando) { 
-            try {
-                await createUserWithEmailAndPassword(auth, correo, contraseña);
-                console.log('usuario creado')
-                navigate('/login'); 
-            } catch (error) {
-                alert('Error al registrar: ' + error.message);
-            }
-        } else{
-            console.log('heres the problem')
+        try {
+            setRegistrando(true); 
+            await createUserWithEmailAndPassword(auth, correo, contraseña);
+            console.log('usuario creado')
+            navigate('/login'); 
+        } catch (error) {
+            alert('Error al registrar: ' + error.message);
+        } finally {
+            setRegistrando(false); 
         }
     }
 
