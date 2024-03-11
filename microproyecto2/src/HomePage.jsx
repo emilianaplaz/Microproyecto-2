@@ -103,7 +103,7 @@ function ClubList() {
     <div className="club-list-container">
       <h1 className="club-list-title">Bienvenido al Club de Videojuegos!</h1>
       <button className="view-games-button" onClick={handleViewGamesClick}>
-        Vista por juego
+        VideoJuegos
       </button>
       <ul className="club-list">
         {clubsData.map((club) => (
