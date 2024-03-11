@@ -8,7 +8,10 @@ import videojuegosData from './videojuegos.json';
 
 function ClubList() {
   const [selectedClub, setSelectedClub] = useState(null);
-  const [showGames, setShowGames] = useState(false); 
+  const [showGames, setShowGames] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredGames, setFilteredGames] = useState([]);
+
   const handleClubClick = (club) => {
     setSelectedClub(club);
   };
@@ -22,11 +25,23 @@ function ClubList() {
   };
 
   const handleAfiliarseClick = () => {
-    // codigo para afiliarse a n club
+    // codigo para afiliarse
   };
 
   const handleViewGamesClick = () => {
     setShowGames(true);
+  };
+
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+    filterGames(event.target.value);
+  };
+
+  const filterGames = (query) => {
+    const filtered = videojuegosData.filter((videojuego) =>
+      videojuego.titulo.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredGames(filtered);
   };
 
   if (selectedClub) {
@@ -60,9 +75,16 @@ function ClubList() {
   if (showGames) {
     return (
       <div className="club-list-container">
-        <h1 className="club-list-title">Videojuegos</h1>
+        <h1 className="club-list-title">Vista por juego</h1>
+        <input
+          type="text"
+          placeholder="Buscar por juego"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          className="search-input"
+        />
         <ul className="videojuegos-list">
-          {videojuegosData.map((videojuego) => (
+          {filteredGames.map((videojuego) => (
             <li key={videojuego.ID} className="videojuego-item">
               <h4>{videojuego.titulo}</h4>
               <p>Género: {videojuego.genero}</p>
