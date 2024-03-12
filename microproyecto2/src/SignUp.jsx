@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom'; 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; 
 import app from "./firebase";
+import db from './firebase';
 import { useNavigate } from 'react-router-dom';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { usuariosCollection } from './firebase';
 
 const auth = getAuth(app);
 
@@ -21,16 +24,26 @@ const SignUp = () => {
     const functSignUp = async () => {
         const correo = document.querySelector('#signup-email').value;
         const contraseña = document.querySelector('#signup-password').value;
-
+    
         try {
-            setRegistrando(true); 
+            setRegistrando(true);
             await createUserWithEmailAndPassword(auth, correo, contraseña);
-            console.log('usuario creado')
-            navigate('/login'); 
+            console.log('usuario creado');
+    
+            // Save user information to Firestore
+            await addDoc(usuariosCollection, {
+                name,
+                lastname,
+                username,
+                favoriteGame,
+                email
+            });
+    
+            navigate('/login');
         } catch (error) {
             alert('Error al registrar: ' + error.message);
         } finally {
-            setRegistrando(false); 
+            setRegistrando(false);
         }
     }
 

@@ -62,6 +62,7 @@ const LogIn = () => {
                     </div>
                 </div>
             </form>
+            
         </div>
     );
 };

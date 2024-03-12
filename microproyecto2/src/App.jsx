@@ -1,30 +1,23 @@
-import { useState } from 'react'
-import './App.css'
-import LogIn from './Login'
-import SignUp from './SignUp'
-import HomePage from './HomePage'
-import Account from './Account'
-
-import app from './firebase'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
-const auth = getAuth(app)
-
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './Login'; 
+import HomePage from './HomePage'; 
+import SignUp from './SignUp'; 
+import Account from './Account'; 
 
 function App() {
-
   return (
     <div className='App'>
-    <Router>
-      <Routes>
-        <Route path='/login' element={<LogIn />} />
-        <Route path='/homepage' element={<HomePage />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/account' element={<Account />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/homepage' element={<HomePage />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/account' element={<Account />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
 
-export default App
+export default App;
